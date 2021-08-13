@@ -4,6 +4,11 @@ FROM python:3.9-slim-buster
 # set the working directory in the container
 WORKDIR /app/
 
+# create a virtual environment and add it to path
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
 RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /etc/apt/sources.list && \
     apt -qq update
 RUN apt -qq install -y --no-install-recommends \
@@ -15,7 +20,6 @@ RUN apt -qq install -y --no-install-recommends \
     gnupg2 \
     unzip \
     wget \
-    youtube-dl \
     ffmpeg \
     jq
 
