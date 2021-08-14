@@ -6,7 +6,7 @@ WORKDIR /app/
 
 RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /etc/apt/sources.list \
     && dpkg-reconfigure debconf --frontend=noninteractive \
-    apt-get update
+    && apt-get update
 
 RUN apt-get install --no-install-recommends \
     curl \
