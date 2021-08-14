@@ -5,10 +5,10 @@ FROM python:3.9-slim-buster
 WORKDIR /app/
 
 RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /etc/apt/sources.list \
-    && dpkg-reconfigure debconf --frontend=noninteractive \
     && apt-get update
 
-RUN apt-get install -qq --no-install-recommends \
+RUN dpkg-reconfigure debconf --frontend=noninteractive \
+    && apt-get install -y --no-install-recommends \
     curl \
     git \
     gcc \
@@ -24,7 +24,7 @@ RUN apt-get install -qq --no-install-recommends \
 RUN mkdir -p /tmp/ \
     && cd /tmp/ \
     && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && dpkg -i ./google-chrome-stable_current_amd64.deb; apt-get -fqq install \
+    && dpkg -i ./google-chrome-stable_current_amd64.deb; apt-get -fy install \
     && rm ./google-chrome-stable_current_amd64.deb
 
 # install chromedriver
