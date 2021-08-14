@@ -4,11 +4,11 @@ FROM python:3.9-slim-buster
 # set the working directory in the container
 WORKDIR /app/
 
-ENV DEBIAN_FRONTEND noninteractive
 RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /etc/apt/sources.list \
     && apt-get update
 
-RUN apt-get install -y --no-install-recommends \
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get install --no-install-recommends \
     apt-utils \
     curl \
     git \
@@ -25,7 +25,7 @@ RUN apt-get install -y --no-install-recommends \
 RUN mkdir -p /tmp/ \
     && cd /tmp/ \
     && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && dpkg -i ./google-chrome-stable_current_amd64.deb; apt-get -fy install \
+    && dpkg -i ./google-chrome-stable_current_amd64.deb; DEBIAN_FRONTEND=noninteractive apt-get -f install \
     && rm ./google-chrome-stable_current_amd64.deb
 
 # install chromedriver
