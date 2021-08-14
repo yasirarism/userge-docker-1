@@ -4,11 +4,11 @@ FROM python:3.9-slim-buster
 # set the working directory in the container
 WORKDIR /app/
 
+ENV DEBIAN_FRONTEND noninteractive
 RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /etc/apt/sources.list \
     && apt-get update
 
-RUN dpkg-reconfigure debconf --frontend=noninteractive \
-    && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
     curl \
     git \
     gcc \
