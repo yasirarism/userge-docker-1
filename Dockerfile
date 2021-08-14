@@ -8,7 +8,7 @@ RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /
     && apt-get update
 
 RUN DEBIAN_FRONTEND=noninteractive \
-    apt-get install --no-install-recommends \
+    apt-get install -qq --no-install-recommends \
     apt-utils \
     curl \
     git \
@@ -25,7 +25,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
 RUN mkdir -p /tmp/ \
     && cd /tmp/ \
     && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && dpkg -i ./google-chrome-stable_current_amd64.deb; DEBIAN_FRONTEND=noninteractive apt-get -f install \
+    && dpkg -i ./google-chrome-stable_current_amd64.deb; DEBIAN_FRONTEND=noninteractive apt-get -fqq install \
     && rm ./google-chrome-stable_current_amd64.deb
 
 # install chromedriver
