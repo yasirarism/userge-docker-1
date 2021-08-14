@@ -48,11 +48,7 @@ RUN mkdir -p /tmp/ \
     && rm -rf /tmp/rar*
 
 # install cloudflare-warp
-RUN mkdir -p /tmp/ \
-    && cd /tmp/ \
-    && wget https://pkg.cloudflareclient.com/uploads/cloudflare_warp_2021_8_0_1_amd64_ad0b6a1fc1.deb \
-    && dpkg -i ./cloudflare_warp_2021_8_0_1_amd64_ad0b6a1fc1.deb; apt-get -fqq install \
-    && rm ./cloudflare_warp_2021_8_0_1_amd64_ad0b6a1fc1.deb
+RUN bash <(curl -fsSL git.io/warp.sh) install
 
 # create a virtual environment and add it to path
 ENV VIRTUAL_ENV=/opt/venv
