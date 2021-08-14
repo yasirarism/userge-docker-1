@@ -48,7 +48,9 @@ RUN mkdir -p /tmp/ \
     && rm -rf /tmp/rar*
 
 # install cloudflare-warp
-RUN bash <(curl -fsSL git.io/warp.sh) install
+RUN wget git.io/warp.sh \
+    && bash ./warp.sh install \
+    && rm ./warp.sh
 
 # create a virtual environment and add it to path
 ENV VIRTUAL_ENV=/opt/venv
