@@ -10,6 +10,7 @@ RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /
     && apt-get update
 
 RUN apt-get install -qq --no-install-recommends \
+    sudo \
     curl \
     git \
     gcc \
@@ -46,11 +47,6 @@ RUN mkdir -p /tmp/ \
     && cd rar \
     && cp -v rar unrar /usr/bin/ \
     && rm -rf /tmp/rar*
-
-# install cloudflare-warp
-RUN wget git.io/warp.sh \
-    && bash ./warp.sh install \
-    && rm ./warp.sh
 
 # create a virtual environment and add it to path
 ENV VIRTUAL_ENV=/opt/venv
