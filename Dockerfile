@@ -51,7 +51,7 @@ RUN mkdir -p /tmp/ \
 RUN curl https://pkg.cloudflareclient.com/pubkey.gpg | apt-key add - \
     && echo 'deb http://pkg.cloudflareclient.com/ buster main' | tee /etc/apt/sources.list.d/cloudflare-client.list \
     && apt-get update \
-    && apt-get install -qq cloudflare-warp
+    && apt-get install -fqq cloudflare-warp
 
 # create a virtual environment and add it to path
 ENV VIRTUAL_ENV=/opt/venv
