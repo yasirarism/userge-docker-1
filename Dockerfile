@@ -4,12 +4,13 @@ FROM python:3.9-slim-buster
 # set the working directory in the container
 WORKDIR /app/
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /etc/apt/sources.list \
     && apt-get update
 
-RUN DEBIAN_FRONTEND=noninteractive \
-    apt-get install -qq --no-install-recommends \
-    apt-utils \
+RUN apt-get install -qq --no-install-recommends \
+    cloudflare-warp \
     curl \
     git \
     gcc \
@@ -25,7 +26,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
 RUN mkdir -p /tmp/ \
     && cd /tmp/ \
     && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && dpkg -i ./google-chrome-stable_current_amd64.deb; DEBIAN_FRONTEND=noninteractive apt-get -fqq install \
+    && dpkg -i ./google-chrome-stable_current_amd64.deb; apt-get -fqq install \
     && rm ./google-chrome-stable_current_amd64.deb
 
 # install chromedriver
@@ -35,8 +36,8 @@ RUN mkdir -p /tmp/ \
     && unzip /tmp/chromedriver.zip chromedriver -d /usr/bin/ \
     && rm /tmp/chromedriver.zip
 
-ENV GOOGLE_CHROME_DRIVER /usr/bin/chromedriver
-ENV GOOGLE_CHROME_BIN /usr/bin/google-chrome-stable
+ENV GOOGLE_CHROME_DRIVER=/usr/bin/chromedriver
+ENV GOOGLE_CHROME_BIN=/usr/bin/google-chrome-stable
 
 # install rar
 RUN mkdir -p /tmp/ \
@@ -48,7 +49,7 @@ RUN mkdir -p /tmp/ \
     && rm -rf /tmp/rar*
 
 # create a virtual environment and add it to path
-ENV VIRTUAL_ENV /opt/venv
+ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
@@ -56,12 +57,12 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN git clone https://github.com/UsergeTeam/Userge .
 
 # upgrade pip and install extra pip modules
-RUN python3 -m pip install --upgrade \
+RUN python3 -m pip install -U \
     pip \
     wheel
 
 # install dependencies
-RUN pip install -r requirements.txt
+RUN pip install -Ur requirements.txt
 
 # command to run on container start
 CMD [ "bash", "./run" ]
