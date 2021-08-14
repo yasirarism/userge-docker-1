@@ -9,6 +9,7 @@ RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /
     && apt-get update
 
 RUN apt-get install -y --no-install-recommends \
+    apt-utils \
     curl \
     git \
     gcc \
