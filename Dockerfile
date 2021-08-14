@@ -5,7 +5,7 @@ FROM python:3.9-slim-buster
 WORKDIR /app/
 
 # create a virtual environment and add it to path
-ENV VIRTUAL_ENV=/opt/venv
+ENV VIRTUAL_ENV /opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
@@ -55,6 +55,10 @@ RUN mkdir -p /tmp/ && \
 
 # clone the userge repo to current directory
 RUN git clone https://github.com/UsergeTeam/Userge .
+
+# upgrade pip and install extra pip modules
+RUN python3 -m pip install --upgrade pip \
+    wheel
 
 # install dependencies
 RUN pip install -r requirements.txt
