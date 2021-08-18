@@ -1,7 +1,5 @@
-# set base image (host OS)
 FROM python:3.9-slim-buster
 
-# set the working directory in the container
 WORKDIR /app/
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -22,14 +20,12 @@ RUN apt-get install -qq --no-install-recommends \
     ffmpeg \
     jq
 
-# install chrome
 RUN mkdir -p /tmp/ \
     && cd /tmp/ \
     && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
     && dpkg -i ./google-chrome-stable_current_amd64.deb; apt-get -fqq install \
     && rm ./google-chrome-stable_current_amd64.deb
 
-# install chromedriver
 RUN mkdir -p /tmp/ \
     && cd /tmp/ \
     && wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip \
@@ -39,7 +35,6 @@ RUN mkdir -p /tmp/ \
 ENV GOOGLE_CHROME_DRIVER=/usr/bin/chromedriver
 ENV GOOGLE_CHROME_BIN=/usr/bin/google-chrome-stable
 
-# install rar
 RUN mkdir -p /tmp/ \
     && cd /tmp/ \
     && wget -O /tmp/rarlinux.tar.gz http://www.rarlab.com/rar/rarlinux-x64-6.0.0.tar.gz \
@@ -48,21 +43,16 @@ RUN mkdir -p /tmp/ \
     && cp -v rar unrar /usr/bin/ \
     && rm -rf /tmp/rar*
 
-# create a virtual environment and add it to path
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-# clone the userge repo to current directory
 RUN git clone https://github.com/UsergeTeam/Userge .
 
-# upgrade pip and install extra pip modules
 RUN python3 -m pip install -U \
     pip \
     wheel
 
-# install dependencies
-RUN pip install -Ur requirements.txt
+RUN pip3 install -Ur requirements.txt
 
-# command to run on container start
 CMD [ "bash", "./run" ]
