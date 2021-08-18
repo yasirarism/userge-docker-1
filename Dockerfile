@@ -51,7 +51,8 @@ RUN git clone https://github.com/UsergeTeam/Userge .
 
 RUN python3 -m pip install -U \
     pip \
-    wheel
+    wheel \
+    pip-autoremove
 
 RUN pip3 install -Ur requirements.txt
 
