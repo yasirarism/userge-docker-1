@@ -2,14 +2,18 @@ FROM python:3.9-slim-buster
 
 WORKDIR /app/
 
-ARG DEBIAN_FRONTEND=noninteractive
-
 RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /etc/apt/sources.list \
     && apt-get update
 
-RUN apt-get install -qq --no-install-recommends \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -qq \
+    sudo \
+    curl \
     git \
-    wget
+    build-essential \
+    gnupg2 \
+    unzip \
+    wget \
+    jq
 
 RUN mkdir -p /tmp/ \
     && cd /tmp/ \
