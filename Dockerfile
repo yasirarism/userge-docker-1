@@ -6,7 +6,7 @@ RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /
     && apt-get update
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -qq \
-    openssl \
+    libssl1.1 \
     sudo \
     curl \
     git \
