@@ -12,7 +12,6 @@ RUN apt-get install -qq --no-install-recommends \
     curl \
     git \
     g++ \
-    gcc \
     gnupg2 \
     unzip \
     wget \
