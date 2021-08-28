@@ -11,7 +11,8 @@ RUN apt-get install -qq --no-install-recommends \
     sudo \
     curl \
     git \
-    build-essential \
+    g++ \
+    gcc \
     gnupg2 \
     unzip \
     wget \
