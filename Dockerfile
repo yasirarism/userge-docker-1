@@ -11,7 +11,6 @@ RUN apt-get install -qq --no-install-recommends \
     sudo \
     curl \
     git \
-    gcc \
     gnupg2 \
     unzip \
     wget \
