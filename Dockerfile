@@ -6,7 +6,7 @@ RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /
     && apt-get update
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -qq \
-    libconfig-model-openssh-perl \
+    perl \
     sudo \
     curl \
     git \
