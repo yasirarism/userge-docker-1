@@ -11,8 +11,6 @@ RUN apt-get install -qq --no-install-recommends \
     sudo \
     curl \
     git \
-    gcc \
-    g++ \
     build-essential \
     gnupg2 \
     unzip \
@@ -51,8 +49,7 @@ RUN git clone https://github.com/UsergeTeam/Userge .
 
 RUN python3 -m pip install -U \
     pip \
-    wheel \
-    pip-autoremove
+    wheel
 
 RUN pip3 install -Ur requirements.txt
 
