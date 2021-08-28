@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster
+FROM python:3.9-slim-bullseye
 
 WORKDIR /app/
 
@@ -6,12 +6,12 @@ RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /
     && apt-get update
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -qq \
-    libcrypt1 \
     sudo \
     curl \
     git \
     build-essential \
     gnupg2 \
+    ffmpeg \
     unzip \
     wget \
     jq
