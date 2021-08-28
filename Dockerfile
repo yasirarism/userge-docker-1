@@ -9,7 +9,7 @@ RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /
 
 RUN apt-get install -qq --no-install-recommends \
     git \
-    wget \
+    wget
 
 RUN mkdir -p /tmp/ \
     && cd /tmp/ \
