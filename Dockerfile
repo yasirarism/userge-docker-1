@@ -8,9 +8,9 @@ RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /
     && apt-get update
 
 RUN apt-get install -qq --no-install-recommends \
-    sudo \
     curl \
     git \
+    build-essential \
     gnupg2 \
     unzip \
     wget \
