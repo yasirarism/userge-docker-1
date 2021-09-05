@@ -3,12 +3,12 @@ FROM python:3.9-slim-bullseye
 WORKDIR /app/
 
 RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /etc/apt/sources.list \
-    && apt-get update
+    && apt-get update \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -qq \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     sudo \
-    curl \
-    git \
     build-essential \
     gnupg2 \
     ffmpeg \
@@ -19,7 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -qq \
 RUN mkdir -p /tmp/ \
     && cd /tmp/ \
     && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && dpkg -i ./google-chrome-stable_current_amd64.deb; apt-get -fqq install \
+    && dpkg -i ./google-chrome-stable_current_amd64.deb; apt-get install -fy --no-install-recommends \
     && rm ./google-chrome-stable_current_amd64.deb
 
 RUN mkdir -p /tmp/ \
