@@ -9,6 +9,7 @@ RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     sudo \
+    git \
     build-essential \
     gnupg2 \
     ffmpeg \
