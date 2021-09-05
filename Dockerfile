@@ -3,9 +3,7 @@ FROM python:3.9-slim-bullseye
 WORKDIR /app/
 
 RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /etc/apt/sources.list \
-    && apt-get update \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get update
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     sudo \
