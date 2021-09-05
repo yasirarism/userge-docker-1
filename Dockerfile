@@ -3,16 +3,16 @@ FROM python:3.9-slim-bullseye
 WORKDIR /app/
 
 RUN echo deb http://http.us.debian.org/debian/ testing non-free contrib main > /etc/apt/sources.list \
-    && apt-get update
+    && apt-get update \
+    && apt-get clean
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     sudo \
-    git \
+    curl \
     build-essential \
     gnupg2 \
     ffmpeg \
     unzip \
-    wget \
     jq
 
 RUN mkdir -p /tmp/ \
@@ -23,7 +23,7 @@ RUN mkdir -p /tmp/ \
 
 RUN mkdir -p /tmp/ \
     && cd /tmp/ \
-    && wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip \
+    && curl -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip \
     && unzip /tmp/chromedriver.zip chromedriver -d /usr/bin/ \
     && rm /tmp/chromedriver.zip
 
@@ -32,7 +32,7 @@ ENV GOOGLE_CHROME_BIN=/usr/bin/google-chrome-stable
 
 RUN mkdir -p /tmp/ \
     && cd /tmp/ \
-    && wget -O /tmp/rarlinux.tar.gz http://www.rarlab.com/rar/rarlinux-x64-6.0.0.tar.gz \
+    && curl -O /tmp/rarlinux.tar.gz http://www.rarlab.com/rar/rarlinux-x64-6.0.0.tar.gz \
     && tar -xzvf rarlinux.tar.gz \
     && cd rar \
     && cp -v rar unrar /usr/bin/ \
